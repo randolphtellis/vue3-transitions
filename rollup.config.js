@@ -17,7 +17,7 @@ import typescript from 'rollup-plugin-typescript2'
 
 const projectRoot = path.resolve(__dirname, ".")
 
-const validPkgName = 'vue3ComponentLibrary'
+const validPkgName = 'vue3Transitions'
 
 const libBuildFolder = 'dist/lib'
 
@@ -155,7 +155,6 @@ const mapComponent = name => {
       plugins: [
         resolve(),
         typescript(),
-        commonjs(),
         ...baseConfig.plugins.preVue,
         vue(baseConfig.plugins.vue),
         ...baseConfig.plugins.postVue,
@@ -163,6 +162,7 @@ const mapComponent = name => {
           ...baseConfig.plugins.babel,
           presets: [['@babel/preset-env', { modules: false }]]
         }),
+        commonjs(),
         filesize()
       ]
     }
@@ -179,7 +179,6 @@ const esConfig = {
   plugins: [
     resolve(),
     typescript(),
-    commonjs(),
     replace(baseConfig.plugins.replace),
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
@@ -188,6 +187,7 @@ const esConfig = {
       ...baseConfig.plugins.babel,
       presets: [['@babel/preset-env', { modules: false }]]
     }),
+    commonjs(),
     filesize()
   ]
 }
@@ -202,8 +202,10 @@ const merged = {
   plugins: [
     resolve(),
     typescript(),
-    commonjs(),
-    replace(baseConfig.plugins.replace),
+    replace({
+      ...baseConfig.plugins.replace,
+      'process.env.ES_BUILD': JSON.stringify('true'),
+    }),
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
     ...baseConfig.plugins.postVue,
@@ -211,6 +213,7 @@ const merged = {
       ...baseConfig.plugins.babel,
       presets: [['@babel/preset-env', { modules: false }]]
     }),
+    commonjs(),
     filesize()
   ]
 }
@@ -237,7 +240,6 @@ const unpkgConfig = {
   plugins: [
     resolve(),
     typescript(),
-    commonjs(),
     replace(baseConfig.plugins.replace),
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
@@ -248,6 +250,7 @@ const unpkgConfig = {
         ecma: 3
       }
     }),
+    commonjs(),
     filesize()
   ]
 }
@@ -267,7 +270,6 @@ const cjsConfig = {
   plugins: [
     resolve(),
     typescript(),
-    commonjs(),
     replace(baseConfig.plugins.replace),
     ...baseConfig.plugins.preVue,
     vue({
@@ -279,6 +281,7 @@ const cjsConfig = {
     }),
     ...baseConfig.plugins.postVue,
     babel(baseConfig.plugins.babel),
+    commonjs(),
     filesize({
       showBrotliSize: true
     })

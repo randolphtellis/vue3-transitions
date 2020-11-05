@@ -1,0 +1,17 @@
+/*!
+ * animate.css - https://animate.style/
+ * Version - 4.1.1
+ * Licensed under the MIT license - http://opensource.org/licenses/MIT
+ *
+ * Copyright (c) 2020 Animate.css
+ */
+:root {
+  --animate-duration: 1s;
+  --animate-delay: 1s;
+  --animate-repeat: 1;
+}
+.v3t-animate {
+  animation-duration: 1s;
+  // animation-duration: var(--animate-duration);
+  animation-fill-mode: both;
+}

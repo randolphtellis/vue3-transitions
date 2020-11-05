@@ -1,22 +1,33 @@
 <script lang="ts">
 import { ref } from 'vue';
-import ExampleButton from './components/example-button/example-button.vue';
+import FadeInOut from './components/fade-in-out/fade-in-out.vue';
 
 export default {
   name: 'App',
 
   components: {
-    ExampleButton,
+    FadeInOut,
   },
+
+  setup () {
+
+    const fade = ref(false)
+    return {
+      fade,
+    }
+  }
 };
 </script>
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <div>
-    <example-button href="#">
-      Button component
-    </example-button>
+  <div style="height:300px;">
+    <button @click="fade = !fade">Trigger</button>
+    <FadeInOut>
+      <div v-if="fade" class="box" style="height:250px;width:100px;background:red;">
+        FadeInOut
+      </div>
+    </FadeInOut>
   </div>
 </template>
 

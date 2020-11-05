@@ -1,1 +1,1 @@
-export * from './example-button'
+export * from './fade-in-out'
