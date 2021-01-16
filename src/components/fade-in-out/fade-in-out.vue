@@ -47,34 +47,3 @@ export default defineComponent({
   </transition>
 </template>
 
-<style lang="scss" scoped>
-@import './src/common/css/animate-base.scss';
-
-  .v3t-animate__fadeIn {
-    animation-name: fadeIn;
-  }
-
-  .v3t-animate__fadeOut {
-    animation-name: fadeOut;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeOut {
-    from {
-      opacity: 1;
-    }
-
-    to {
-      opacity: 0;
-    }
-  }
-</style>
