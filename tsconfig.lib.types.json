@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "incremental": true,
     "target": "es3",
     "module": "es2015",
     "strict": true,
     "jsx": "preserve",
+    "outDir": "./dist",
     "importHelpers": true,
     "moduleResolution": "node",
     "skipLibCheck": true,

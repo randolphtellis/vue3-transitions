@@ -12,14 +12,20 @@ import sass from 'node-sass'
 import postCss from "rollup-plugin-postcss"
 import autoprefixer from 'autoprefixer'
 import url from "@rollup/plugin-url"
-import { terser } from "rollup-plugin-terser";
+import { terser } from "rollup-plugin-terser"
 import typescript from 'rollup-plugin-typescript2'
 
 const projectRoot = path.resolve(__dirname, ".")
 
-const validPkgName = 'vue3Transitions'
+const validPkgName = 'Vue3Transitions'
 
 const libBuildFolder = 'dist/lib'
+
+// Get browserslist config and remove ie from es build targets
+const esbrowserslist = fs.readFileSync('./.browserslistrc')
+  .toString()
+  .split('\n')
+  .filter((entry) => entry && entry.substring(0, 2) !== 'ie');
 
 let postVueConfig = [
   // Process only `<style module>` blocks.
@@ -50,7 +56,7 @@ let postVueConfig = [
       autoprefixer
     ],
     sourceMap: true,
-    extract: true,
+    extract: false,
     extensions: ['.scss','.css', '.sass']
   }),
   url({
@@ -85,8 +91,11 @@ const baseConfig = {
       __VUE_PROD_DEVTOOLS__: JSON.stringify(false)
     },
     vue: {
-      target: 'browser',
-      preprocessStyles: true
+      preprocessStyles: true,
+      css: false,
+      style: {
+        postcssPlugins: [autoprefixer]
+      }
     },
     postVue: [
       ...postVueConfig
@@ -104,7 +113,7 @@ const baseConfig = {
 const external = [
   // list external dependencies, exactly the way it is written in the import statement.
   // eg. 'jquery'
-  'Vue'
+  'vue'
 ]
 
 // UMD/IIFE shared settings: output.globals
@@ -125,56 +134,23 @@ const components = fs
   )
 
 const entriespath = {
-  index: './src/index.ts',
+  index: './src/vue3-transitions.ts',
   ...components.reduce((obj, name) => {
     obj[name] = baseFolder + componentsFolder + name + '/index.ts'
     return obj
   }, {})
 }
 
-const capitalize = s => {
-  if (typeof s !== 'string') return ''
-  return s.charAt(0).toUpperCase() + s.slice(1);
-};
-
 // Customize configs for individual targets
 let buildFormats = []
-
-const mapComponent = name => {
-  return [
-    {
-      input: baseFolder + componentsFolder + `${name}/index.ts`,
-      external: external,
-      output: {
-        format: 'umd',
-        name: capitalize(name),
-        file: `${libBuildFolder}/components/${name}/index.ts`,
-        exports: 'named',
-        globals
-      },
-      plugins: [
-        resolve(),
-        typescript(),
-        ...baseConfig.plugins.preVue,
-        vue(baseConfig.plugins.vue),
-        ...baseConfig.plugins.postVue,
-        babel({
-          ...baseConfig.plugins.babel,
-          presets: [['@babel/preset-env', { modules: false }]]
-        }),
-        commonjs(),
-        filesize()
-      ]
-    }
-  ];
-}
 
 const esConfig = {
   input: entriespath,
   external: external,
   output: {
     format: 'esm',
-    dir: `${libBuildFolder}/esm`
+    dir: `${libBuildFolder}/esm`, 
+    exports: 'named'
   },
   plugins: [
     resolve(),
@@ -185,7 +161,7 @@ const esConfig = {
     ...baseConfig.plugins.postVue,
     babel({
       ...baseConfig.plugins.babel,
-      presets: [['@babel/preset-env', { modules: false }]]
+      presets: [['@babel/preset-env', { targets: esbrowserslist }]]
     }),
     commonjs(),
     filesize()
@@ -193,15 +169,18 @@ const esConfig = {
 }
 
 const merged = {
-  input: 'src/index.ts',
+  input: 'src/vue3-transitions.ts',
   external: external,
   output: {
     format: 'esm',
-    file: `${libBuildFolder}/${pkg.name}.esm.js`
+    file: `${libBuildFolder}/${pkg.name}.esm.js`,
+    exports: 'named'
   },
   plugins: [
     resolve(),
-    typescript(),
+    typescript({
+      tsconfig: path.join(process.cwd(), 'tsconfig.lib.types.json'),
+    }),
     replace({
       ...baseConfig.plugins.replace,
       'process.env.ES_BUILD': JSON.stringify('true'),
@@ -211,28 +190,55 @@ const merged = {
     ...baseConfig.plugins.postVue,
     babel({
       ...baseConfig.plugins.babel,
-      presets: [['@babel/preset-env', { modules: false }]]
+      presets: [['@babel/preset-env', { targets: esbrowserslist }]]
     }),
     commonjs(),
     filesize()
   ]
 }
 
-const ind = [
-  ...components.map(f => mapComponent(f)).reduce((r, a) => r.concat(a), [])
-]
 buildFormats.push(esConfig)
 buildFormats.push(merged)
-buildFormats = [...buildFormats, ...ind]
 
 const unpkgConfig = {
   ...baseConfig,
-  input: 'src/index.ts',
+  input: 'src/vue3-transitions.cjs-iife.ts',
   external: external,
   output: {
     compact: true,
     file: `${libBuildFolder}/${pkg.name}-browser.min.js`,
     format: 'iife',
+    name: validPkgName,
+    exports: 'auto',
+    globals
+  },
+  plugins: [
+    resolve(),
+    typescript(),
+    replace(baseConfig.plugins.replace),
+    ...baseConfig.plugins.preVue,
+    vue(baseConfig.plugins.vue),
+    ...baseConfig.plugins.postVue,
+    babel(baseConfig.plugins.babel),
+    commonjs(),
+    terser({
+      output: {
+        ecma: 5
+      }
+    }),
+    filesize()
+  ]
+}
+buildFormats.push(unpkgConfig)
+
+const cjsConfig = {
+  ...baseConfig,
+  input: 'src/vue3-transitions.ts',
+  external: external,
+  output: {
+    compact: true,
+    format: 'cjs',
+    file: `${libBuildFolder}/cjs/index.js`,
     name: validPkgName,
     exports: 'named',
     globals
@@ -245,46 +251,8 @@ const unpkgConfig = {
     vue(baseConfig.plugins.vue),
     ...baseConfig.plugins.postVue,
     babel(baseConfig.plugins.babel),
-    terser({
-      output: {
-        ecma: 3
-      }
-    }),
     commonjs(),
     filesize()
-  ]
-}
-buildFormats.push(unpkgConfig)
-
-const cjsConfig = {
-  ...baseConfig,
-  input: entriespath,
-  external: external,
-  output: {
-    compact: true,
-    format: 'cjs',
-    dir: `${libBuildFolder}/cjs`,
-    exports: 'named',
-    globals
-  },
-  plugins: [
-    resolve(),
-    typescript(),
-    replace(baseConfig.plugins.replace),
-    ...baseConfig.plugins.preVue,
-    vue({
-      ...baseConfig.plugins.vue,
-      template: {
-        ...baseConfig.plugins.vue.template,
-        optimizeSSR: true
-      }
-    }),
-    ...baseConfig.plugins.postVue,
-    babel(baseConfig.plugins.babel),
-    commonjs(),
-    filesize({
-      showBrotliSize: true
-    })
   ]
 }
 buildFormats.push(cjsConfig)
