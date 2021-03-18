@@ -4,7 +4,8 @@
     "name": "Randolph Tellis"
   },
   "license": "MIT",
-  "version": "0.1.3",
+  "keywords": ["vue 3 transitions", "vue 3 animations", "vue 3 entry exit animations", "vue 3 transition components", "vue 3 transition library"],
+  "version": "0.1.4",
   "private": false,
   "main": "cjs/index.js",
   "browser": "vue3-transitions.esm.js",
