@@ -1,12 +1,15 @@
 import { ref } from 'vue';
 import FadeInOut from '../components/fade-in-out/fade-in-out.vue';
 
+const entryExitValues = ['center', 'left', 'right', 'top', 'bottom'];
+
 export default {
   title: 'FadeInOut/Default',
   component: FadeInOut,
   argTypes: {
-    entry: { control: { type: 'select', options: ['center', 'left', 'right', 'top', 'bottom'] } },
-    exit: { control: { type: 'select', options: ['center', 'left', 'right', 'top', 'bottom'] } }
+    entry: { control: { type: 'select', options: entryExitValues }, defaultValue: 'center' },
+    exit: { control: { type: 'select', options: entryExitValues },  defaultValue: 'center' },
+    duration: { control: { type: 'text'}, defaultValue: '0.5s' }
   },
 };
 
@@ -19,19 +22,29 @@ export const Default = (args: any) => ({
     return { args, fade };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<button @click="fade = !fade">Trigger</button><fade-in-out v-bind="args" ><div v-if="fade" class="box" style="margin:50px 25%;height:250px;width:100px;background:red;">FadeInOut-center-center</div></fade-in-out>',
+  template: '<button @click="fade = !fade">Trigger</button><fade-in-out v-bind="args" ><div v-if="fade"><h2>Fade In Out</h2></div></fade-in-out>',
 });
 
-export const Primary = Default.bind({});
-Primary.args = {
-  entry: { control: { type: 'select', options: ['center', 'left', 'right', 'top', 'bottom'] } },
-  exit: { control: { type: 'select', options: ['center', 'left', 'right', 'top', 'bottom'] } },
-  duration: '0.5s'
+export const FadeInCenterOutLeft = Default.bind({});
+FadeInCenterOutLeft.args = {
+  entry: 'center',
+  exit: 'left',
 };
 
-export const Secondary = Default.bind({});
-Secondary.args = {
-  entry: { control: { type: 'select', options: ['center', 'left', 'right', 'top', 'bottom'] } },
-  exit: { control: { type: 'select', options: ['center', 'left', 'right', 'top', 'bottom'] } },
-  duration: '0.5s'
+export const FadeInCenterOutRight = Default.bind({});
+FadeInCenterOutRight.args = {
+  entry: 'center',
+  exit: 'right',
+};
+
+export const FadeInCenterOutTop = Default.bind({});
+FadeInCenterOutTop.args = {
+  entry: 'center',
+  exit: 'top',
+};
+
+export const FadeInCenterOutBottom = Default.bind({});
+FadeInCenterOutBottom.args = {
+  entry: 'center',
+  exit: 'bottom',
 };

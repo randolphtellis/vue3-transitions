@@ -24,6 +24,7 @@ app.mount('#app')
 ```
 
 ### Router view
+#### Vue recommends using a transition `mode` - more info <a href="https://v3.vuejs.org/guide/transitions-enterleave.html#transition-modes">here</a>
 ```js
 <template>
   <router-view v-slot="{ Component }">
@@ -46,10 +47,10 @@ export default defineComponent({
 ### As a component
 ```js
 <template>
-  <button @click="triggerFade = !triggerFade">
+  <button @click="triggerFade = !triggerFade" >
     Trigger animation
   </button>
-  <FadeInOut entry="left" exit="left" mode="out-in">
+  <FadeInOut entry="left" exit="left">
     <h1 v-if="triggerFade">Fade in and out transition</h1>
   </FadeInOut>
 </template>
@@ -70,4 +71,24 @@ export default defineComponent({
 </script>
 ```
 
+### Tree Shaking
+#### Import components from the `esm` folder to enable tree shaking.
+```js
+<script>
+import { defineComponent } from 'vue'
+import { FadeInOut } from 'vue3-transitions/esm'
 
+export default defineComponent({
+  components: { FadeInOut }
+})
+</script>
+```
+
+### Available components
+
+1. FadeInOut
+2. SlideInOut (coming soon)
+3. ZoomInOut  (coming soon)
+4. RollInOut  (coming soon)
+
+...plus more coming soon
