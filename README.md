@@ -13,7 +13,7 @@ yarn add vue3-transitions
 ## Usage
 
 ### Import globally
-```js
+```ts
 import { createApp } from 'vue'
 import App from './App.vue'
 import Vue3Transitions from 'vue3-transitions'
@@ -25,7 +25,7 @@ app.mount('#app')
 
 ### Router view
 #### Vue recommends using a transition `mode` - more info <a href="https://v3.vuejs.org/guide/transitions-enterleave.html#transition-modes">here</a>
-```js
+```ts
 <template>
   <router-view v-slot="{ Component }">
     <FadeInOut entry="left" exit="left" mode="out-in">
@@ -45,7 +45,7 @@ export default defineComponent({
 ```
 
 ### As a component
-```js
+```ts
 <template>
   <button @click="triggerFade = !triggerFade" >
     Trigger animation
@@ -73,7 +73,7 @@ export default defineComponent({
 
 ### Tree Shaking
 #### Import components from the `esm` folder to enable tree shaking.
-```js
+```ts
 <script>
 import { defineComponent } from 'vue'
 import { FadeInOut } from 'vue3-transitions/esm'

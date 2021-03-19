@@ -155,7 +155,7 @@ const esConfig = {
   plugins: [
     resolve(),
     typescript(),
-    replace(baseConfig.plugins.replace),
+    replace({ preventAssignment: false, ...baseConfig.plugins.replace }),
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
     ...baseConfig.plugins.postVue,
@@ -182,6 +182,7 @@ const merged = {
       tsconfig: path.join(process.cwd(), 'tsconfig.lib.types.json'),
     }),
     replace({
+      preventAssignment: false,
       ...baseConfig.plugins.replace,
       'process.env.ES_BUILD': JSON.stringify('true'),
     }),
@@ -215,7 +216,7 @@ const unpkgConfig = {
   plugins: [
     resolve(),
     typescript(),
-    replace(baseConfig.plugins.replace),
+    replace({ preventAssignment: false, ...baseConfig.plugins.replace }),
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
     ...baseConfig.plugins.postVue,
@@ -246,7 +247,7 @@ const cjsConfig = {
   plugins: [
     resolve(),
     typescript(),
-    replace(baseConfig.plugins.replace),
+    replace({ preventAssignment: false, ...baseConfig.plugins.replace }),
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
     ...baseConfig.plugins.postVue,
