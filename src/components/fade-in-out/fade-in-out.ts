@@ -1,5 +1,5 @@
 export interface FadeInOutProps {
-  duration: string
+  duration: number
   entry: string
   exit: string
   mode?: string

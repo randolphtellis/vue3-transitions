@@ -2,6 +2,8 @@
 
 Reusable Vue 3 component transitions.
 
+#### <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions">Demo</a>
+
 ## Install
 
 ```bash
@@ -28,7 +30,7 @@ app.mount('#app')
 ```ts
 <template>
   <router-view v-slot="{ Component }">
-    <FadeInOut entry="left" exit="left" mode="out-in">
+    <FadeInOut entry="left" exit="left" :duration="500" mode="out-in">
       <component :is="Component" />
     </FadeInOut>
   </router-view>
@@ -50,7 +52,7 @@ export default defineComponent({
   <button @click="triggerFade = !triggerFade" >
     Trigger animation
   </button>
-  <FadeInOut entry="left" exit="left">
+  <FadeInOut entry="left" exit="left" :duration="500">
     <h1 v-if="triggerFade">Fade in and out transition</h1>
   </FadeInOut>
 </template>
@@ -86,7 +88,7 @@ export default defineComponent({
 
 ### Available components
 
-1. FadeInOut
+1. <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/fadeinout-default--fade-in-center-out-center">FadeInOut</a>
 2. SlideInOut (coming soon)
 3. ZoomInOut  (coming soon)
 4. RollInOut  (coming soon)

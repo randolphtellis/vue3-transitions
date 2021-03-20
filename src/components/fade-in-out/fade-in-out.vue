@@ -6,9 +6,12 @@ export default defineComponent({
   name: 'fade-in-out',
 
   props: {
+    /**
+     * Duration of the entry/exit animations in milliseconds
+     */
     duration: {
-      type: String,
-      default: '0.5s',
+      type: Number,
+      default: 500,
     },
     entry: {
       type: String,
@@ -29,7 +32,7 @@ export default defineComponent({
 
   setup(props: FadeInOutProps) {
 
-    const transitionDuration = computed(() => `transition-duration:${props.duration};`)
+    const transitionDuration = computed(() => `transition-duration:${props.duration}ms;`)
 
     return {
       transitionDuration
