@@ -2,6 +2,8 @@
 
 Reusable Vue 3 component transitions.
 
+#### <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions">Demo</a>
+
 ## Install
 
 ```bash
@@ -13,7 +15,7 @@ yarn add vue3-transitions
 ## Usage
 
 ### Import globally
-```js
+```ts
 import { createApp } from 'vue'
 import App from './App.vue'
 import Vue3Transitions from 'vue3-transitions'
@@ -25,10 +27,10 @@ app.mount('#app')
 
 ### Router view
 #### Vue recommends using a transition `mode` - more info <a href="https://v3.vuejs.org/guide/transitions-enterleave.html#transition-modes">here</a>
-```js
+```ts
 <template>
   <router-view v-slot="{ Component }">
-    <FadeInOut entry="left" exit="left" mode="out-in">
+    <FadeInOut entry="left" exit="left" :duration="500" mode="out-in">
       <component :is="Component" />
     </FadeInOut>
   </router-view>
@@ -45,12 +47,12 @@ export default defineComponent({
 ```
 
 ### As a component
-```js
+```ts
 <template>
   <button @click="triggerFade = !triggerFade" >
     Trigger animation
   </button>
-  <FadeInOut entry="left" exit="left">
+  <FadeInOut entry="left" exit="left" :duration="500">
     <h1 v-if="triggerFade">Fade in and out transition</h1>
   </FadeInOut>
 </template>
@@ -73,7 +75,7 @@ export default defineComponent({
 
 ### Tree Shaking
 #### Import components from the `esm` folder to enable tree shaking.
-```js
+```ts
 <script>
 import { defineComponent } from 'vue'
 import { FadeInOut } from 'vue3-transitions/esm'
@@ -86,7 +88,7 @@ export default defineComponent({
 
 ### Available components
 
-1. FadeInOut
+1. <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/fadeinout-default--fade-in-center-out-center">FadeInOut</a>
 2. SlideInOut (coming soon)
 3. ZoomInOut  (coming soon)
 4. RollInOut  (coming soon)

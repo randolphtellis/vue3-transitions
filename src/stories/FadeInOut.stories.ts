@@ -1,4 +1,5 @@
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { Meta } from '@storybook/vue3';
 import FadeInOut from '../components/fade-in-out/fade-in-out.vue';
 
 const entryExitValues = ['center', 'left', 'right', 'top', 'bottom'];
@@ -9,41 +10,53 @@ export default {
   argTypes: {
     entry: { control: { type: 'select', options: entryExitValues }, defaultValue: 'center' },
     exit: { control: { type: 'select', options: entryExitValues },  defaultValue: 'center' },
-    duration: { control: { type: 'text'}, defaultValue: '0.5s' }
-  },
-};
+    duration: { control: { type: 'number'}, defaultValue: 500 }
+  }
+} as Meta;
 
-export const Default = (args: any) => ({
-  // Components used in your story `template` are defined in the `components` object
+export const FadeInCenterOutCenter = (args: any) => ({
   components: { FadeInOut },
-  // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     const fade = ref(false)
-    return { args, fade };
+
+    const autoTrigger = () => {
+      fade.value = !fade.value
+    }
+
+    onMounted(() => {
+      autoTrigger();
+      setInterval(() => {
+        autoTrigger();
+      }, args.duration + 200)
+    })
+    return { args, fade }
   },
-  // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<button @click="fade = !fade">Trigger</button><fade-in-out v-bind="args" ><div v-if="fade"><h2>Fade In Out</h2></div></fade-in-out>',
+  template: `
+    <fade-in-out v-bind="args">
+      <h1 v-show="fade">Fade In Out</h1>
+    </fade-in-out>
+  `,
 });
 
-export const FadeInCenterOutLeft = Default.bind({});
+export const FadeInCenterOutLeft = FadeInCenterOutCenter.bind({});
 FadeInCenterOutLeft.args = {
   entry: 'center',
   exit: 'left',
 };
 
-export const FadeInCenterOutRight = Default.bind({});
+export const FadeInCenterOutRight = FadeInCenterOutCenter.bind({});
 FadeInCenterOutRight.args = {
   entry: 'center',
   exit: 'right',
 };
 
-export const FadeInCenterOutTop = Default.bind({});
+export const FadeInCenterOutTop = FadeInCenterOutCenter.bind({});
 FadeInCenterOutTop.args = {
   entry: 'center',
   exit: 'top',
 };
 
-export const FadeInCenterOutBottom = Default.bind({});
+export const FadeInCenterOutBottom = FadeInCenterOutCenter.bind({});
 FadeInCenterOutBottom.args = {
   entry: 'center',
   exit: 'bottom',

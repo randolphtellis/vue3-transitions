@@ -4,8 +4,14 @@
     "name": "Randolph Tellis"
   },
   "license": "MIT",
-  "keywords": ["vue 3 transitions", "vue 3 animations", "vue 3 entry exit animations", "vue 3 transition components", "vue 3 transition library"],
-  "version": "0.1.4",
+  "keywords": [
+    "vue 3 transitions",
+    "vue 3 animations",
+    "vue 3 entry exit animations",
+    "vue 3 transition components",
+    "vue 3 transition library"
+  ],
+  "version": "0.1.5",
   "private": false,
   "main": "cjs/index.js",
   "browser": "vue3-transitions.esm.js",
@@ -13,15 +19,13 @@
   "unpkg": "vue3-transitions-browser.min.js",
   "types": "vue3-transitions.d.ts",
   "scripts": {
-    "dev": "vue-cli-service serve",
-    "build:app": "vue-cli-service build",
     "build:lib": "chmod +x scripts/build-lib.sh && scripts/build-lib.sh",
-    "build": "npm run build:lib",
+    "build": "npm run build:lib && npm run build-storybook",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "check-packages": "chmod +x scripts/check-packages.sh && scripts/check-packages.sh",
     "start-publish": "cd dist/lib && npm publish",
-    "storybook": "start-storybook -p 6006",
+    "dev": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o ./docs"
   },
   "dependencies": {
