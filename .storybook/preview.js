@@ -1,4 +1,7 @@
-
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  previewTabs: {
+    canvas: {
+      hidden: true,
+    },
+  },
 }
