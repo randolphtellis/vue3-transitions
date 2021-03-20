@@ -88,8 +88,8 @@ export default defineComponent({
 
 ### Available components
 
-1. <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/fadeinout-default--fade-in-center-out-center">FadeInOut</a>
-2. SlideInOut (coming soon)
+1. <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/entry-exit-animations-fadeinout-default--fade-in-center-out-center">FadeInOut</a>
+2. <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/entry-exit-animations-slideinout-default--slide-in-left-out-right">SlideInOut</a>
 3. ZoomInOut  (coming soon)
 4. RollInOut  (coming soon)
 

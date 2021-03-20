@@ -4,4 +4,7 @@ export const parameters = {
       hidden: true,
     },
   },
+  storybookCodePanel: {
+    disabled: false,
+  }
 }
