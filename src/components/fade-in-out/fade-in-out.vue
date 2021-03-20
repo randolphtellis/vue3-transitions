@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { FadeInOutProps } from './fade-in-out'
+import { FadeInOutPropsType } from './fade-in-out'
 
 export default defineComponent({
   name: 'fade-in-out',
@@ -30,7 +30,7 @@ export default defineComponent({
     },
   },
 
-  setup(props: FadeInOutProps) {
+  setup(props: FadeInOutPropsType) {
 
     const transitionDuration = computed(() => `transition-duration:${props.duration}ms;`)
 
@@ -75,7 +75,7 @@ export default defineComponent({
 .vtt_fade-in-center-out-left-enter-from,
 .vtt_fade-in-center-out-left-leave-to {
   opacity: 0;
-  transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-1%, 0, 0);
 }
 .vtt_fade-in-center-out-left-enter-to,
 .vtt_fade-in-center-out-left-leave-from {
@@ -89,7 +89,7 @@ export default defineComponent({
 .vtt_fade-in-center-out-right-enter-from,
 .vtt_fade-in-center-out-right-leave-to {
   opacity: 0;
-  transform: translate3d(100%, 0, 0);
+  transform: translate3d(1%, 0, 0);
 }
 .vtt_fade-in-center-out-right-enter-to,
 .vtt_fade-in-center-out-right-leave-from {
@@ -103,7 +103,7 @@ export default defineComponent({
 .vtt_fade-in-center-out-top-enter-from,
 .vtt_fade-in-center-out-top-leave-to {
   opacity: 0;
-  transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -10%, 0);
 }
 .vtt_fade-in-center-out-top-enter-to,
 .vtt_fade-in-center-out-top-leave-from {
@@ -117,7 +117,7 @@ export default defineComponent({
 .vtt_fade-in-center-out-bottom-enter-from,
 .vtt_fade-in-center-out-bottom-leave-to {
   opacity: 0;
-  transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 10%, 0);
 }
 .vtt_fade-in-center-out-bottom-enter-to,
 .vtt_fade-in-center-out-bottom-leave-from {
@@ -126,7 +126,8 @@ export default defineComponent({
 
 // Fade in left fade out center
 .vtt_fade-in-left-out-center-enter-active {
-  transition: opacity ease-in;
+  transition: all ease-in;
+  transform: translate3d(-1%, 0, 0);
 }
 .vtt_fade-in-left-out-center-leave-active {
   transition: opacity ease-out;
@@ -138,17 +139,74 @@ export default defineComponent({
 .vtt_fade-in-left-out-center-enter-to,
 .vtt_fade-in-left-out-center-leave-from {
   opacity: 1;
-  transform: translate3d(-100%, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 // Fade in left fade out left
 .vtt_fade-in-left-out-left-enter-from,
 .vtt_fade-in-left-out-left-leave-to {
   opacity: 0;
-  transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-1%, 0, 0);
 }
 .vtt_fade-in-left-out-left-enter-to,
 .vtt_fade-in-left-out-left-leave-from {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+// Fade in left fade out right
+.vtt_fade-in-left-out-right-enter-active {
+  transition: all ease-in;
+  transform: translate3d(-1%, 0, 0);
+}
+.vtt_fade-in-left-out-right-leave-active {
+  transition: all ease-out;
+  transform: translate3d(1%, 0, 0);
+}
+.vtt_fade-in-left-out-right-enter-from,
+.vtt_fade-in-left-out-right-leave-to {
+  opacity: 0;
+}
+.vtt_fade-in-left-out-right-enter-to,
+.vtt_fade-in-left-out-right-leave-from {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+// Fade in left fade out top
+.vtt_fade-in-left-out-top-enter-active {
+  transition: all ease-in;
+  transform: translate3d(-1%, 0, 0);
+}
+.vtt_fade-in-left-out-top-leave-active {
+  transition: all ease-out;
+  transform: translate3d(0, -10%, 0);
+}
+.vtt_fade-in-left-out-top-enter-from,
+.vtt_fade-in-left-out-top-leave-to {
+  opacity: 0;
+}
+.vtt_fade-in-left-out-top-enter-to,
+.vtt_fade-in-left-out-top-leave-from {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+// Fade in left fade out bottom
+.vtt_fade-in-left-out-bottom-enter-active {
+  transition: all ease-in;
+  transform: translate3d(-1%, 0, 0);
+}
+.vtt_fade-in-left-out-bottom-leave-active {
+  transition: all ease-out;
+  transform: translate3d(0, 10%, 0);
+}
+.vtt_fade-in-left-out-bottom-enter-from,
+.vtt_fade-in-left-out-bottom-leave-to {
+  opacity: 0;
+}
+.vtt_fade-in-left-out-bottom-enter-to,
+.vtt_fade-in-left-out-bottom-leave-from {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
