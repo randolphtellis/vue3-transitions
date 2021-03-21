@@ -11,11 +11,11 @@
     "vue 3 transition components",
     "vue 3 transition library"
   ],
-  "version": "0.1.6",
+  "version": "0.1.8",
   "private": false,
   "main": "cjs/index.js",
   "browser": "vue3-transitions.esm.js",
-  "module": "vue3-transitions.esm.js",
+  "module": "esm/index.js",
   "unpkg": "vue3-transitions-browser.min.js",
   "types": "vue3-transitions.d.ts",
   "scripts": {
