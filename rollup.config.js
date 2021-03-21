@@ -41,9 +41,8 @@ let postVueConfig = [
     plugins: [
       autoprefixer
     ],
-    sourceMap: true,
     extract: true,
-    extensions: ['.scss','.css', '.sass']
+    extensions: ['.scss', '.css', '.sass']
   }),
   // Process all `<style>` blocks except `<style module>`.
   postCss({
@@ -55,9 +54,8 @@ let postVueConfig = [
     plugins: [
       autoprefixer
     ],
-    sourceMap: true,
     extract: false,
-    extensions: ['.scss','.css', '.sass']
+    extensions: ['.scss', '.css', '.sass']
   }),
   url({
       include: [
@@ -152,6 +150,7 @@ const esConfig = {
     dir: `${libBuildFolder}/esm`, 
     exports: 'named'
   },
+  treeshake: false,
   plugins: [
     resolve(),
     typescript(),
@@ -176,6 +175,7 @@ const merged = {
     file: `${libBuildFolder}/${pkg.name}.esm.js`,
     exports: 'named'
   },
+  treeshake: false,
   plugins: [
     resolve(),
     typescript({
@@ -213,6 +213,7 @@ const unpkgConfig = {
     exports: 'auto',
     globals
   },
+  treeshake: false,
   plugins: [
     resolve(),
     typescript(),
@@ -244,6 +245,7 @@ const cjsConfig = {
     exports: 'named',
     globals
   },
+  treeshake: false,
   plugins: [
     resolve(),
     typescript(),
