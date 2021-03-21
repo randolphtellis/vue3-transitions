@@ -1,6 +1,4 @@
-# vue3-transitions
-
-Reusable Vue 3 component transitions.
+<img src="https://randolphtellis.github.io/vue3-transitions/static/media/vue3-transitions-logo.png"/>
 
 #### <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions">Demo</a>
 
