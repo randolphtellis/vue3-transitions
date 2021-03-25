@@ -1,5 +1,7 @@
 <img src="https://randolphtellis.github.io/vue3-transitions/static/media/vue3-transitions-logo.png"/>
 
+[![Build status](https://badge.buildkite.com/4f1fa94d6c4fa58c1f4b02dcb6e1a452b89c7108038beaceda.svg)](https://buildkite.com/radesigns/vue3-transitions)
+
 #### <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions">Demo</a>
 
 ## Install
