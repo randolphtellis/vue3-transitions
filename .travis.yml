@@ -12,7 +12,7 @@ after_success:
 deploy:
     provider: pages
     skip_cleanup: true
-    github_token: $VUE-TRANSITION-GITHUB-TRAVIS
+    github_token: $VUE_TRANSITION_GITHUB_TRAVIS
     keep_history: true
     local_dir: docs
     on:
