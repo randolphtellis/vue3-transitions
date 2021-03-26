@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+    - node
+
+script:
+    - npm run test:unit
+
+after_success:
+    - npm run build
+
+deploy:
+    provider: pages
+    skip_cleanup: true
+    github_token: $VUE-TRANSITION-GITHUB-TRAVIS
+    keep_history: true
+    local_dir: docs
+    on:
+        branch: main
