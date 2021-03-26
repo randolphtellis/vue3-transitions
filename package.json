@@ -21,7 +21,7 @@
   "scripts": {
     "build:lib": "chmod +x scripts/build-lib.sh && scripts/build-lib.sh",
     "build": "npm run build:lib && npm run build-storybook",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "vue-cli-service test:unit --passWithNoTests",
     "lint": "vue-cli-service lint",
     "check-packages": "chmod +x scripts/check-packages.sh && scripts/check-packages.sh",
     "start-publish": "cd dist/lib && npm publish",
