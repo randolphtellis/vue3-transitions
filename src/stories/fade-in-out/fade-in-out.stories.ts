@@ -5,7 +5,7 @@ import FadeInOut from '../../components/fade-in-out/fade-in-out.vue';
 const entryExitValues = ['center', 'left', 'right', 'top', 'bottom'];
 
 export default {
-  title: 'Entry-Exit Animations/FadeInOut/Default',
+  title: 'Entry & Exit Animations/FadeInOut/Default',
   component: FadeInOut,
   argTypes: {
     entry: { control: { type: 'select', options: entryExitValues }, defaultValue: 'center' },

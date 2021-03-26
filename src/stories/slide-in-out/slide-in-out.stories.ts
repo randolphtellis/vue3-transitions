@@ -5,7 +5,7 @@ import SlideInOut from '../../components/slide-in-out/slide-in-out.vue';
 const entryExitValues = ['left', 'right', 'top', 'bottom'];
 
 export default {
-  title: 'Entry-Exit Animations/SlideInOut/Default',
+  title: 'Entry & Exit Animations/SlideInOut/Default',
   component: SlideInOut,
   argTypes: {
     entry: { control: { type: 'select', options: entryExitValues }, defaultValue: 'left' },

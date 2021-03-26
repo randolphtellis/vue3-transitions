@@ -26,7 +26,7 @@
     "check-packages": "chmod +x scripts/check-packages.sh && scripts/check-packages.sh",
     "start-publish": "cd dist/lib && npm publish",
     "dev": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -o ./docs && chmod +x scripts/build-storybook.sh && scripts/build-storybook.sh"
+    "build-storybook": "build-storybook -o ./dist/docs && chmod +x scripts/build-storybook.sh && scripts/build-storybook.sh"
   },
   "dependencies": {
     "core-js": "^3.6.5",
