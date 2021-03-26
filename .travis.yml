@@ -14,6 +14,6 @@ deploy:
     skip_cleanup: true
     github_token: $VUE_TRANSITION_GITHUB_TRAVIS
     keep_history: true
-    local_dir: docs
+    local_dir: dist/docs
     on:
         branch: main
