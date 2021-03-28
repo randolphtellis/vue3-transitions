@@ -10,7 +10,7 @@ jobs:
     - stage: build library
       script: npm run build:lib
     - stage: build docs
-      script: npm run build:docs
+      script: npm run build-storybook
     - stage: deploy docs
       script: npm run build
       
