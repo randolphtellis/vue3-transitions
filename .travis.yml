@@ -5,14 +5,14 @@ node_js:
 
 jobs:
   include:
-    - stage: unit tests
-    - script: echo "npm run test:unit"
+    - stage: test
+      script: echo "npm run test:unit"
     - stage: build library
-    - script: npm run build:lib
+      script: npm run build:lib
     - stage: build docs
-    - script: npm run build:docs
+      script: npm run build:docs
     - stage: deploy docs
-    - script: npm run build
+      script: npm run build
       
 deploy:
   provider: pages
