@@ -12,9 +12,10 @@ jobs:
     - stage: build docs
       script: npm run build-storybook
     - stage: deploy docs
-      script: npm run build
+      script: skip
       deploy:
         provider: pages
+        script: npm run build
         cleanup: true
         token: $VUE_TRANSITION_GITHUB_TRAVIS
         keep_history: true
