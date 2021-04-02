@@ -1,36 +1,14 @@
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { FadeInOutPropsType } from './fade-in-out'
+import { defineComponent, computed } from 'vue'
+import { EntryExitPropsType } from '../../common/props/entry-exit-props-type'
+import { props } from '../../common/props/entry-exit-props'
 
 export default defineComponent({
   name: 'fade-in-out',
 
-  props: {
-    /**
-     * Duration of the entry/exit animations in milliseconds
-     */
-    duration: {
-      type: Number,
-      default: 500,
-    },
-    entry: {
-      type: String,
-      default: 'center',
-      validator: (value: string) => ['center', 'left', 'right', 'top', 'bottom'].includes(value),
-    },
-    exit: {
-      type: String,
-      default: 'center',
-      validator: (value: string) => ['center', 'left', 'right', 'top', 'bottom'].includes(value),
-    },
-    mode: {
-      type: String,
-      required: false,
-      validator: (value: string) => ['out-in', 'in-out'].includes(value),
-    },
-  },
+  props,
 
-  setup(props: FadeInOutPropsType) {
+  setup(props: EntryExitPropsType) {
 
     const transitionDuration = computed(() => `transition-duration:${props.duration}ms;`)
 
@@ -130,7 +108,7 @@ export default defineComponent({
   transform: translate3d(-1%, 0, 0);
 }
 .vtt_fade-in-left-out-center-leave-active {
-  transition: opacity ease-out;
+  transition: opacity ease-in;
 }
 .vtt_fade-in-left-out-center-enter-from,
 .vtt_fade-in-left-out-center-leave-to {
@@ -160,7 +138,7 @@ export default defineComponent({
   transform: translate3d(-1%, 0, 0);
 }
 .vtt_fade-in-left-out-right-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(1%, 0, 0);
 }
 .vtt_fade-in-left-out-right-enter-from,
@@ -179,7 +157,7 @@ export default defineComponent({
   transform: translate3d(-1%, 0, 0);
 }
 .vtt_fade-in-left-out-top-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(0, -10%, 0);
 }
 .vtt_fade-in-left-out-top-enter-from,
@@ -198,7 +176,7 @@ export default defineComponent({
   transform: translate3d(-1%, 0, 0);
 }
 .vtt_fade-in-left-out-bottom-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(0, 10%, 0);
 }
 .vtt_fade-in-left-out-bottom-enter-from,
