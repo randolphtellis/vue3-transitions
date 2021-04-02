@@ -1,36 +1,14 @@
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { SlideInOutPropsType } from './slide-in-out'
+import { defineComponent, computed } from 'vue'
+import { EntryExitPropsType } from '../../common/props/entry-exit-props-type'
+import { props } from '../../common/props/entry-exit-props'
 
 export default defineComponent({
   name: 'slide-in-out',
 
-  props: {
-    /**
-     * Duration of the entry/exit animations in milliseconds
-     */
-    duration: {
-      type: Number,
-      default: 500,
-    },
-    entry: {
-      type: String,
-      default: 'center',
-      validator: (value: string) => ['left', 'right', 'top', 'bottom'].includes(value),
-    },
-    exit: {
-      type: String,
-      default: 'center',
-      validator: (value: string) => ['left', 'right', 'top', 'bottom'].includes(value),
-    },
-    mode: {
-      type: String,
-      required: false,
-      validator: (value: string) => ['out-in', 'in-out'].includes(value),
-    },
-  },
+  props,
 
-  setup(props: SlideInOutPropsType) {
+  setup(props: EntryExitPropsType) {
 
     const transitionDuration = computed(() => `transition-duration:${props.duration}ms;`)
 
@@ -59,7 +37,7 @@ export default defineComponent({
   transform: translate3d(-100%, 0, 0);
 }
 .vtt_slide-in-left-out-right-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(100%, 0, 0);
 }
 .vtt_slide-in-left-out-right-enter-to,
@@ -73,7 +51,7 @@ export default defineComponent({
   transform: translate3d(-100%, 0, 0);
 }
 .vtt_slide-in-left-out-left-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(-100%, 0, 0);
 }
 .vtt_slide-in-left-out-left-enter-to,
@@ -87,7 +65,7 @@ export default defineComponent({
   transform: translate3d(-100%, 0, 0);
 }
 .vtt_slide-in-left-out-top-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(0, -100%, 0);
 }
 .vtt_slide-in-left-out-top-enter-to,
@@ -101,7 +79,7 @@ export default defineComponent({
   transform: translate3d(-100%, 0, 0);
 }
 .vtt_slide-in-left-out-bottom-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(0, 100%, 0);
 }
 .vtt_slide-in-left-out-bottom-enter-to,
@@ -115,7 +93,7 @@ export default defineComponent({
   transform: translate3d(100%, 0, 0);
 }
 .vtt_slide-in-right-out-right-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(100%, 0, 0);
 }
 .vtt_slide-in-right-out-right-enter-to,
@@ -129,7 +107,7 @@ export default defineComponent({
   transform: translate3d(100%, 0, 0);
 }
 .vtt_slide-in-right-out-left-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(-100%, 0, 0);
 }
 .vtt_slide-in-right-out-left-enter-to,
@@ -143,7 +121,7 @@ export default defineComponent({
   transform: translate3d(100%, 0, 0);
 }
 .vtt_slide-in-right-out-top-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(0, -100%, 0);
 }
 .vtt_slide-in-right-out-top-enter-to,
@@ -157,7 +135,7 @@ export default defineComponent({
   transform: translate3d(100%, 0, 0);
 }
 .vtt_slide-in-right-out-bottom-leave-active {
-  transition: all ease-out;
+  transition: all ease-in;
   transform: translate3d(0, 100%, 0);
 }
 .vtt_slide-in-right-out-bottom-enter-to,

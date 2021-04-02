@@ -1,4 +1,4 @@
-export interface FadeInOutPropsType {
+export interface EntryExitPropsType {
   duration: number
   entry: string
   exit: string
