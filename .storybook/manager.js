@@ -1,6 +1,6 @@
 import { addons } from "@storybook/addons";
 import { create } from "@storybook/theming/create";
-import logo from "../public/vue3-transitions-logo-sb.png";
+import logo from "../public/vue3-transitions-logo.png";
 
 const theme = create({
   base: "light",

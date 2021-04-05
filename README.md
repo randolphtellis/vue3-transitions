@@ -1,6 +1,13 @@
-<img src="https://randolphtellis.github.io/vue3-transitions/static/media/vue3-transitions-logo.png"/>
+<div align="center">
+<a target="_blank" href="https://randolphtellis.github.io/vue3-transitions"><img width="350" src="./public/vue3-transitions-logo.png"/></a>
 
-#### <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions">Demo</a>
+[![Build Status](https://travis-ci.com/randolphtellis/vue3-transitions.svg?token=hXpsA9tqveCqkXWMHjxp&branch=main)](https://travis-ci.com/randolphtellis/vue3-transitions) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/vue3-transitions) ![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/vue3-transitions) ![npm](https://img.shields.io/npm/dt/vue3-transitions)
+
+![vue supported version](https://img.shields.io/badge/vue-3.x-brightgreen) [![npm](https://img.shields.io/npm/v/vue3-transitions)](https://www.npmjs.com/package/vue3-transitions) ![NPM](https://img.shields.io/npm/l/vue3-transitions)
+
+#### <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions">DEMO</a>
+
+</div>
 
 ## Install
 

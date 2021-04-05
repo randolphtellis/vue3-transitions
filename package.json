@@ -1,5 +1,6 @@
 {
   "name": "vue3-transitions",
+  "description": "Reusable Vue 3 transition components",
   "author": {
     "name": "Randolph Tellis"
   },
@@ -7,11 +8,12 @@
   "keywords": [
     "vue 3 transitions",
     "vue 3 animations",
+    "vue 3 components",
     "vue 3 entry exit animations",
     "vue 3 transition components",
     "vue 3 transition library"
   ],
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": false,
   "main": "cjs/index.js",
   "browser": "vue3-transitions.esm.js",
@@ -23,7 +25,6 @@
     "build": "npm run build:lib && npm run build-storybook",
     "test:unit": "vue-cli-service test:unit --passWithNoTests",
     "lint": "vue-cli-service lint",
-    "check-packages": "chmod +x scripts/check-packages.sh && scripts/check-packages.sh",
     "start-publish": "cd dist/lib && npm publish",
     "dev": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o ./dist/docs && chmod +x scripts/build-storybook.sh && scripts/build-storybook.sh"
