@@ -9,7 +9,7 @@ node_js:
 jobs:
   include:
     - stage: test
-      script: echo "npm run test:unit"
+      script: npm run test:unit
     - stage: build library
       script: npm run build:lib
     - stage: build docs
