@@ -5,29 +5,29 @@
     "name": "Randolph Tellis"
   },
   "license": "MIT",
-  "keywords": [
-    "vue 3 transitions",
-    "vue 3 animations",
-    "vue 3 components",
-    "vue 3 entry exit animations",
-    "vue 3 transition components",
-    "vue 3 transition library"
-  ],
-  "version": "0.2.5",
+  "version": "0.2.6",
   "private": false,
   "main": "cjs/index.js",
   "browser": "vue3-transitions.esm.js",
   "module": "esm/index.js",
   "unpkg": "vue3-transitions-browser.min.js",
   "types": "vue3-transitions.d.ts",
+  "homepage": "https://github.com/randolphtellis/vue3-transitions#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/randolphtellis/vue3-transitions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/randolphtellis/vue3-transitions/issues"
+  },
   "scripts": {
-    "build:lib": "chmod +x scripts/build-lib.sh && scripts/build-lib.sh",
+    "build:lib": "scripts/build-lib.sh",
     "build": "npm run build:lib && npm run build-storybook",
     "test:unit": "vue-cli-service test:unit --passWithNoTests",
     "lint": "vue-cli-service lint",
     "start-publish": "cd dist/lib && npm publish",
     "dev": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -o ./dist/docs && chmod +x scripts/build-storybook.sh && scripts/build-storybook.sh"
+    "build-storybook": "scripts/build-docs.sh"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -84,5 +84,16 @@
   },
   "peerDependencies": {
     "vue": "^3.0.0"
-  }
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "keywords": [
+    "vue 3 transitions",
+    "vue 3 animations",
+    "vue 3 components",
+    "vue 3 entry exit animations",
+    "vue 3 transition components",
+    "vue 3 transition library"
+  ]
 }
