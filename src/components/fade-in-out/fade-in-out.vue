@@ -1,192 +1,202 @@
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { EntryExitPropsType } from '../../common/props/entry-exit-props-type'
-import { props } from '../../common/props/entry-exit-props'
+import { defineComponent, computed, ref } from 'vue'
+import BaseTransitionComponent from '../base/base-transition-component.vue'
+import { EntryExitPropsType } from '../base/props/entry-exit-props-type'
+import { props } from '../base/props/entry-exit-props'
 
 export default defineComponent({
   name: 'fade-in-out',
+
+  components: { BaseTransitionComponent },
 
   props,
 
   setup(props: EntryExitPropsType) {
 
-    const transitionDuration = computed(() => `transition-duration:${props.duration}ms;`)
+    const transitionType = ref('fio') // FadeInOut
+
+    const transitionName = computed(() => `vt_${transitionType.value}-${props.entry}-${props.exit}`)
 
     return {
-      transitionDuration
+      props,
+      transitionType,
+      transitionName,
     }
   },
 })
 </script>
 
 <template>
-	<transition
-    :name="`vtt_fade-in-${entry}-out-${exit}`"
-    :style="transitionDuration"
-    :mode="mode"
-    >
+  <BaseTransitionComponent
+    v-bind="props"
+    :name="transitionName"
+  >
     <slot></slot>
-  </transition>
+  </BaseTransitionComponent>
 </template>
 
 <style scoped lang="scss">
 
-// Classic Fade in center and fade out center
-.vtt_fade-in-center-out-center-enter-active,
-.vtt_fade-in-center-out-center-leave-active {
-  transition: opacity ease-in;
-}
+.vt_fio {
+  // Classic Fade in center and fade out center
+  &-center-center-enter-active,
+  &-center-center-leave-active {
+    transition: opacity ease-in;
+  }
 
-.vtt_fade-in-center-out-center-enter-from,
-.vtt_fade-in-center-out-center-leave-to {
-  opacity: 0;
-}
-.vtt_fade-in-center-out-center-enter-to,
-.vtt_fade-in-center-out-center-leave-from {
-  opacity: 1;
-}
+  &-center-center-enter-from,
+  &-center-center-leave-to {
+    opacity: 0;
+  }
+  &-center-center-enter-to,
+  &-center-center-leave-from {
+    opacity: 1;
+  }
 
-// Fade in center fade out left
-.vtt_fade-in-center-out-left-enter-active {
-  transition: opacity ease-in;
-}
-.vtt_fade-in-center-out-left-enter-from,
-.vtt_fade-in-center-out-left-leave-to {
-  opacity: 0;
-  transform: translate3d(-1%, 0, 0);
-}
-.vtt_fade-in-center-out-left-enter-to,
-.vtt_fade-in-center-out-left-leave-from {
-  opacity: 1;
-}
+  // Fade in center fade out left
+  &-center-left-enter-active {
+    transition: opacity ease-in;
+  }
+  &-center-left-enter-from,
+  &-center-left-leave-to {
+    opacity: 0;
+    transform: translate3d(-10%, 0, 0);
+  }
+  &-center-left-enter-to,
+  &-center-left-leave-from {
+    opacity: 1;
+  }
 
-// Fade in center fade out right
-.vtt_fade-in-center-out-right-enter-active {
-  transition: opacity ease-in;
-}
-.vtt_fade-in-center-out-right-enter-from,
-.vtt_fade-in-center-out-right-leave-to {
-  opacity: 0;
-  transform: translate3d(1%, 0, 0);
-}
-.vtt_fade-in-center-out-right-enter-to,
-.vtt_fade-in-center-out-right-leave-from {
-  opacity: 1;
-}
+  // Fade in center fade out right
+  &-center-right-enter-active {
+    transition: opacity ease-in;
+  }
+  &-center-right-enter-from,
+  &-center-right-leave-to {
+    opacity: 0;
+    transform: translate3d(10%, 0, 0);
+  }
+  &-center-right-enter-to,
+  &-center-right-leave-from {
+    opacity: 1;
+  }
 
-// Fade in center fade out top
-.vtt_fade-in-center-out-top-enter-active {
-  transition: opacity ease-in;
-}
-.vtt_fade-in-center-out-top-enter-from,
-.vtt_fade-in-center-out-top-leave-to {
-  opacity: 0;
-  transform: translate3d(0, -10%, 0);
-}
-.vtt_fade-in-center-out-top-enter-to,
-.vtt_fade-in-center-out-top-leave-from {
-  opacity: 1;
-}
+  // Fade in center fade out top
+  &-center-top-enter-active {
+    transition: opacity ease-in;
+  }
+  &-center-top-enter-from,
+  &-center-top-leave-to {
+    opacity: 0;
+    transform: translate3d(0, -10%, 0);
+  }
+  &-center-top-enter-to,
+  &-center-top-leave-from {
+    opacity: 1;
+  }
 
-// Fade in center fade out bottom
-.vtt_fade-in-center-out-bottom-enter-active {
-  transition: opacity ease-in;
-}
-.vtt_fade-in-center-out-bottom-enter-from,
-.vtt_fade-in-center-out-bottom-leave-to {
-  opacity: 0;
-  transform: translate3d(0, 10%, 0);
-}
-.vtt_fade-in-center-out-bottom-enter-to,
-.vtt_fade-in-center-out-bottom-leave-from {
-  opacity: 1;
-}
+  // Fade in center fade out bottom
+  &-center-bottom-enter-active {
+    transition: opacity ease-in;
+  }
+  &-center-bottom-enter-from,
+  &-center-bottom-leave-to {
+    opacity: 0;
+    transform: translate3d(0, 10%, 0);
+  }
+  &-center-bottom-enter-to,
+  &-center-bottom-leave-from {
+    opacity: 1;
+  }
 
-// Fade in left fade out center
-.vtt_fade-in-left-out-center-enter-active {
-  transition: all ease-in;
-  transform: translate3d(-1%, 0, 0);
-}
-.vtt_fade-in-left-out-center-leave-active {
-  transition: opacity ease-in;
-}
-.vtt_fade-in-left-out-center-enter-from,
-.vtt_fade-in-left-out-center-leave-to {
-  opacity: 0;
-}
-.vtt_fade-in-left-out-center-enter-to,
-.vtt_fade-in-left-out-center-leave-from {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
+  // Fade in left fade out center
+  &-left-center-enter-active {
+    transition: all ease-in;
+    transform: translate3d(-10%, 0, 0);
+  }
+  &-left-center-leave-active {
+    transition: opacity ease-in;
+  }
+  &-left-center-enter-from,
+  &-left-center-leave-to {
+    opacity: 0;
+  }
+  &-left-center-enter-to,
+  &-left-center-leave-from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 
-// Fade in left fade out left
-.vtt_fade-in-left-out-left-enter-from,
-.vtt_fade-in-left-out-left-leave-to {
-  opacity: 0;
-  transform: translate3d(-1%, 0, 0);
-}
-.vtt_fade-in-left-out-left-enter-to,
-.vtt_fade-in-left-out-left-leave-from {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
+  // Fade in left fade out left
+  &-left-left-enter-from,
+  &-left-left-leave-to {
+    opacity: 0;
+    transform: translate3d(-10%, 0, 0);
+  }
+  &-left-left-enter-to,
+  &-left-left-leave-from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 
-// Fade in left fade out right
-.vtt_fade-in-left-out-right-enter-active {
-  transition: all ease-in;
-  transform: translate3d(-1%, 0, 0);
-}
-.vtt_fade-in-left-out-right-leave-active {
-  transition: all ease-in;
-  transform: translate3d(1%, 0, 0);
-}
-.vtt_fade-in-left-out-right-enter-from,
-.vtt_fade-in-left-out-right-leave-to {
-  opacity: 0;
-}
-.vtt_fade-in-left-out-right-enter-to,
-.vtt_fade-in-left-out-right-leave-from {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
+  // Fade in left fade out right
+  &-left-right-enter-active {
+    transition: all ease-in;
+    transform: translate3d(-10%, 0, 0);
+  }
+  &-left-right-leave-to {
+    opacity: 0;
+    transition: all ease-in;
+    transform: translate3d(10%, 0, 0);
+  }
+  &-left-right-enter-from {
+    opacity: 0;
+  }
+  &-left-right-enter-to,
+  &-left-right-leave-from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 
-// Fade in left fade out top
-.vtt_fade-in-left-out-top-enter-active {
-  transition: all ease-in;
-  transform: translate3d(-1%, 0, 0);
-}
-.vtt_fade-in-left-out-top-leave-active {
-  transition: all ease-in;
-  transform: translate3d(0, -10%, 0);
-}
-.vtt_fade-in-left-out-top-enter-from,
-.vtt_fade-in-left-out-top-leave-to {
-  opacity: 0;
-}
-.vtt_fade-in-left-out-top-enter-to,
-.vtt_fade-in-left-out-top-leave-from {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
+  // Fade in left fade out top
+  &-left-top-enter-active {
+    transition: all ease-in;
+    transform: translate3d(-10%, 0, 0);
+  }
+  &-left-top-leave-to {
+    opacity: 0;
+    transition: all ease-in;
+    transform: translate3d(0, -10%, 0);
+  }
+  &-left-top-enter-from {
+    opacity: 0;
+  }
+  &-left-top-enter-to,
+  &-left-top-leave-from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 
-// Fade in left fade out bottom
-.vtt_fade-in-left-out-bottom-enter-active {
-  transition: all ease-in;
-  transform: translate3d(-1%, 0, 0);
-}
-.vtt_fade-in-left-out-bottom-leave-active {
-  transition: all ease-in;
-  transform: translate3d(0, 10%, 0);
-}
-.vtt_fade-in-left-out-bottom-enter-from,
-.vtt_fade-in-left-out-bottom-leave-to {
-  opacity: 0;
-}
-.vtt_fade-in-left-out-bottom-enter-to,
-.vtt_fade-in-left-out-bottom-leave-from {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
+  // Fade in left fade out bottom
+  &-left-bottom-enter-active {
+    transition: all ease-in;
+    transform: translate3d(-10%, 0, 0);
+  }
+  &-left-bottom-leave-to {
+    opacity: 0;
+    transition: all ease-in;
+    transform: translate3d(0, 10%, 0);
+  }
+  &-left-bottom-enter-from {
+    opacity: 0;
+  }
+  &-left-bottom-enter-to,
+  &-left-bottom-leave-from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+
 }
 
 </style>

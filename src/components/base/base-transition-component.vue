@@ -80,7 +80,7 @@ export default defineComponent({
 
 <template>
 	<transition-group
-    v-if="group === true"
+    v-if="group"
     v-bind="props"
     @enter="insertDuration($el)"
     @before-leave="insertLeaveDuration($el)"
