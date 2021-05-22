@@ -19,6 +19,8 @@ yarn add vue3-transitions
 
 ## Usage
 
+##### Demo code can be found under the docs section <a href="https://randolphtellis.github.io/vue3-transitions/?path=/docs/entry-exit-animations-fadeinout--single">here</a>.
+
 ### Import globally
 ```ts
 import { createApp } from 'vue'
@@ -31,7 +33,7 @@ app.mount('#app')
 ```
 
 ### Router view
-#### Vue recommends using a transition `mode` - more info <a href="https://v3.vuejs.org/guide/transitions-enterleave.html#transition-modes">here</a>
+##### Vue recommends using a transition `mode` - more info <a href="https://v3.vuejs.org/guide/transitions-enterleave.html#transition-modes">here</a>
 ```ts
 <template>
   <router-view v-slot="{ Component }">
@@ -93,8 +95,8 @@ export default defineComponent({
 
 ### Available components
 
-1. <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/entry-exit-animations-fadeinout-default--fade-in-center-out-center">FadeInOut</a>
-2. <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/entry-exit-animations-slideinout-default--slide-in-left-out-right">SlideInOut</a>
+1. FadeInOut - <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/entry-exit-animations-fadeinout--single">Single</a>, <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/entry-exit-animations-fadeinout--group">Group</a>
+2. SlideInOut - <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/entry-exit-animations-slideinout--single">Single</a>, <a target="_blank" href="https://randolphtellis.github.io/vue3-transitions/?path=/story/entry-exit-animations-slideinout--group">Group</a>
 3. ZoomInOut  (coming soon)
 4. RollInOut  (coming soon)
 

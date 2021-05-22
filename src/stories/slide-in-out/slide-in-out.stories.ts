@@ -1,93 +1,107 @@
-import { onMounted, ref } from 'vue';
-import { Meta } from '@storybook/vue3';
-import SlideInOut from '../../components/slide-in-out/slide-in-out.vue';
+import { ref } from 'vue'
+import '../css/page.scss'
+import { Meta } from '@storybook/vue3'
+import SlideInOut from '../../components/slide-in-out/slide-in-out.vue'
+import { templateSourceCode } from '../utilities/template-source'
+import { singleSource, groupSource } from './source-code'
 
-const entryExitValues = ['left', 'right', 'top', 'bottom'];
+const entryValues = ['left', 'right'];
+const exitValues = ['left', 'right', 'top', 'bottom'];
 
 export default {
-  title: 'Entry & Exit Animations/SlideInOut/Default',
+  title: 'Entry & Exit Animations/SlideInOut',
   component: SlideInOut,
   argTypes: {
-    entry: { control: { type: 'select', options: entryExitValues }, defaultValue: 'left' },
-    exit: { control: { type: 'select', options: entryExitValues },  defaultValue: 'right' },
-    duration: { control: { type: 'number'}, defaultValue: 1000 }
+    entry: { control: { type: 'select', options: entryValues } },
+    exit: { control: { type: 'select', options: exitValues } },
+    duration: { control: { type: 'object' }, defaultValue: { enter: 500, leave: 800 } },
+    mode: { control: { type: 'select', required: false, options: ['out-in', 'in-out'] } },
+    appear: { control: { type: 'boolean', required: false } },
+    tag: { control: { type: 'text', required: false } },
+    group: { control: { type: 'boolean', required: false } },
   },
-  parameters: {
-    storybookCodePanel: {
-        disabled: false,
-        files: [
-            {
-                fileName: 'Example',
-                language: 'html',
-                code: require('!!raw-loader!./slide-in-out.example.html')
-            }
-        ]
-    }
-  }
 } as Meta;
 
-export const SlideInLeftOutRight = (args: any) => ({
+export const Single = (args: any, { argTypes }) => ({
+  props: Object.keys(argTypes),
   components: { SlideInOut },
   setup() {
-    const slide = ref(false)
+    const slide = ref<boolean>(true)
 
     const autoTrigger = () => {
       slide.value = !slide.value
     }
 
-    onMounted(() => {
-      autoTrigger();
-      setInterval(() => {
-        autoTrigger();
-      }, args.duration + 400)
-    })
-    return { args, slide }
+    return { args, slide, autoTrigger }
   },
   template: `
-    <slide-in-out v-bind="args">
-      <h1 v-if="slide">Slide In Out</h1>
-    </slide-in-out>
-  `,
+  <div>
+    <button class="story-buttons" @click="autoTrigger">Trigger animation</button>
+    <div class="single-wrap">
+      <SlideInOut v-bind="args">
+        <div v-if="slide" class="card single-item"></div>
+      </SlideInOut>
+    </div>
+  </div>
+  `
 });
 
-export const SlideInLeftOutLeft = SlideInLeftOutRight.bind({});
-SlideInLeftOutLeft.args = {
+Single.args = {
   entry: 'left',
-  exit: 'left',
-};
-
-export const SlideInLeftOutTop = SlideInLeftOutRight.bind({});
-SlideInLeftOutTop.args = {
-  entry: 'left',
-  exit: 'top',
-};
-
-export const SlideInLeftOutBottom = SlideInLeftOutRight.bind({});
-SlideInLeftOutBottom.args = {
-  entry: 'left',
-  exit: 'bottom',
-};
-
-export const SlideInRightOutRight = SlideInLeftOutRight.bind({});
-SlideInRightOutRight.args = {
-  entry: 'right',
   exit: 'right',
+  duration: 800,
+  appear: true
 };
 
-export const SlideInRightOutLeft = SlideInLeftOutRight.bind({});
-SlideInRightOutLeft.args = {
-  entry: 'right',
-  exit: 'left',
+
+Single.parameters = {
+  docs: { source: { code: templateSourceCode(singleSource, Single.args) } },
 };
 
-export const SlideInRightOutTop = SlideInLeftOutRight.bind({});
-SlideInRightOutTop.args = {
-  entry: 'right',
+export const Group = (args: any) => {
+
+  return {
+    components: { SlideInOut },
+    setup() {
+      const items = ref<number[]>([1])
+
+      const nextNum = ref<number>(10)
+
+      const addItem = () => {
+        items.value.push(nextNum.value++)
+      }
+
+      const removeItem = () => {
+        if (items.value.length !== 1) {
+          items.value.pop();
+        }
+      }
+
+      return { args, items, addItem, removeItem }
+    },
+    template: `
+    <div>
+      <button class="story-buttons" @click="addItem">Add item</button>
+      <button class="story-buttons" @click="removeItem">Remove item</button>
+      <SlideInOut v-bind="args" class="group-wrap">
+        <div v-for="(item, i) in items.slice().reverse()" class="card group-item" :key="item"></div>
+      </SlideInOut>
+    </div>
+    `
+  };
+};
+
+
+Group.args = {
+  entry: 'left',
   exit: 'top',
+  duration: 800,
+  group: true,
+  tag: 'div',
+  moveClass: 'group-move-enter',
+  leaveActiveClass: 'group-move-leave'
 };
 
-export const SlideInRightOutBottom = SlideInLeftOutRight.bind({});
-SlideInRightOutBottom.args = {
-  entry: 'right',
-  exit: 'bottom',
+Group.parameters = {
+  docs: { source: { code: templateSourceCode(groupSource, Group.args) } },
 };

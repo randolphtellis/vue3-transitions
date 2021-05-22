@@ -54,6 +54,7 @@ let postVueConfig = [
     plugins: [
       autoprefixer
     ],
+    minimize: true,
     extract: false,
     extensions: ['.scss', '.css', '.sass']
   }),
