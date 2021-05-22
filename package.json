@@ -5,7 +5,7 @@
     "name": "Randolph Tellis"
   },
   "license": "MIT",
-  "version": "0.2.6",
+  "version": "1.0.0",
   "private": false,
   "main": "cjs/index.js",
   "browser": "vue3-transitions.esm.js",
@@ -26,7 +26,7 @@
     "test:unit": "vue-cli-service test:unit --passWithNoTests",
     "lint": "vue-cli-service lint",
     "start-publish": "cd dist/lib && npm publish",
-    "dev": "start-storybook -p 6006 --no-manager-cache",
+    "dev": "start-storybook -p 6006",
     "build-storybook": "scripts/build-docs.sh"
   },
   "dependencies": {
