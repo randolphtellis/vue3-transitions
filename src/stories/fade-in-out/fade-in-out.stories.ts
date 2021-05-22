@@ -98,8 +98,8 @@ Group.args = {
   duration: 700,
   group: true,
   tag: 'div',
-  'move-class': 'group-move-enter',
-  'leave-active-class': 'group-move-leave'
+  moveClass: 'group-move-enter',
+  leaveActiveClass: 'group-move-leave'
 };
 
 Group.parameters = {

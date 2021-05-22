@@ -117,13 +117,17 @@ export default defineComponent({
     transition: all ease-in;
     transform: translate3d(-100%, 0, 0);
   }
-  &-l-r-leave-active {
+  &-l-r-leave-to {
+    opacity: 0;
     transition: all ease-in;
     transform: translate3d(100%, 0, 0);
   }
+  &-l-r-enter-from {
+    opacity: 0;
+  }
   &-l-r-enter-to,
   &-l-r-leave-from {
-    transition: all ease-in;
+    opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
@@ -132,26 +136,37 @@ export default defineComponent({
     transition: all ease-in;
     transform: translate3d(-100%, 0, 0);
   }
-  &-l-l-leave-active {
+  &-l-l-leave-to {
+    opacity: 0;
     transition: all ease-in;
     transform: translate3d(-100%, 0, 0);
   }
+  &-l-l-enter-from {
+    opacity: 0;
+  }
   &-l-l-enter-to,
   &-l-l-leave-from {
+    opacity: 1;
     transform: translate3d(0, 0, 0);
   }
+  
 
   // Slide in left slide out top
   &-l-t-enter-active {
     transition: all ease-in;
     transform: translate3d(-100%, 0, 0);
   }
-  &-l-t-leave-active {
+  &-l-t-leave-to {
+    opacity: 0;
     transition: all ease-in;
     transform: translate3d(0, -100%, 0);
   }
+  &-l-t-enter-from {
+    opacity: 0;
+  }
   &-l-t-enter-to,
   &-l-t-leave-from {
+    opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
@@ -160,12 +175,17 @@ export default defineComponent({
     transition: all ease-in;
     transform: translate3d(-100%, 0, 0);
   }
-  &-l-b-leave-active {
+  &-l-b-leave-to {
+    opacity: 0;
     transition: all ease-in;
     transform: translate3d(0, 100%, 0);
   }
+  &-l-b-enter-from {
+    opacity: 0;
+  }
   &-l-b-enter-to,
   &-l-b-leave-from {
+    opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
@@ -174,12 +194,17 @@ export default defineComponent({
     transition: all ease-in;
     transform: translate3d(100%, 0, 0);
   }
-  &-r-r-leave-active {
+  &-r-r-leave-to {
+    opacity: 0;
     transition: all ease-in;
     transform: translate3d(100%, 0, 0);
   }
+  &-r-r-enter-from {
+    opacity: 0;
+  }
   &-r-r-enter-to,
   &-r-r-leave-from {
+    opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
@@ -188,12 +213,17 @@ export default defineComponent({
     transition: all ease-in;
     transform: translate3d(100%, 0, 0);
   }
-  &-r-l-leave-active {
+  &-r-l-leave-to {
+    opacity: 0;
     transition: all ease-in;
     transform: translate3d(-100%, 0, 0);
   }
+  &-r-l-enter-from {
+    opacity: 0;
+  }
   &-r-l-enter-to,
   &-r-l-leave-from {
+    opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
@@ -202,12 +232,17 @@ export default defineComponent({
     transition: all ease-in;
     transform: translate3d(100%, 0, 0);
   }
-  &-r-t-leave-active {
+  &-r-t-leave-to {
+    opacity: 0;
     transition: all ease-in;
     transform: translate3d(0, -100%, 0);
   }
+  &-r-t-enter-from {
+    opacity: 0;
+  }
   &-r-t-enter-to,
   &-r-t-leave-from {
+    opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
@@ -216,12 +251,17 @@ export default defineComponent({
     transition: all ease-in;
     transform: translate3d(100%, 0, 0);
   }
-  &-r-b-leave-active {
+  &-r-b-leave-to {
+    opacity: 0;
     transition: all ease-in;
     transform: translate3d(0, 100%, 0);
   }
+  &-r-b-enter-from {
+    opacity: 0;
+  }
   &-r-b-enter-to,
   &-r-b-leave-from {
+    opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 }

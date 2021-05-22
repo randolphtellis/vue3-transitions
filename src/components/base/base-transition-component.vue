@@ -60,10 +60,14 @@ export default defineComponent({
         if (props.group) {
           const slotItems = el.children
           for (let i = 0; i < slotItems.length; i++) {
-            (slotItems[i] as HTMLElement).style.transitionDuration = durationObj.value?.enter + 'ms'
+            if ((slotItems[i] as HTMLElement)?.style) {
+              (slotItems[i] as HTMLElement).style.transitionDuration = durationObj.value?.enter + 'ms'
+            }
           }
         } else {
-          el.style.transitionDuration = durationObj.value?.enter + 'ms'
+          if (el.style) {
+            el.style.transitionDuration = durationObj.value?.enter + 'ms'
+          }
         }
         emit('onEnter', el)
       }
@@ -74,10 +78,14 @@ export default defineComponent({
         if (props.group) {
           const slotItems = el.children
           for (let i = 0; i < slotItems.length; i++) {
-            (slotItems[i] as HTMLElement).style.transitionDuration = durationObj.value?.leave + 'ms'
+              if ((slotItems[i] as HTMLElement)?.style) {
+                (slotItems[i] as HTMLElement).style.transitionDuration = durationObj.value?.leave + 'ms'
+              }
           }
         } else {
-          el.style.transitionDuration = durationObj.value?.leave + 'ms'
+          if (el.style) {
+            el.style.transitionDuration = durationObj.value?.leave + 'ms'
+          }
         }
         emit('onLeave', el)
       }

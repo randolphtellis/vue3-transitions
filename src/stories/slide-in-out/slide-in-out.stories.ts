@@ -22,7 +22,7 @@ export default {
   },
 } as Meta;
 
-export const SingleSlide = (args: any, { argTypes }) => ({
+export const Single = (args: any, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { SlideInOut },
   setup() {
@@ -46,7 +46,7 @@ export const SingleSlide = (args: any, { argTypes }) => ({
   `
 });
 
-SingleSlide.args = {
+Single.args = {
   entry: 'left',
   exit: 'right',
   duration: 800,
@@ -54,11 +54,11 @@ SingleSlide.args = {
 };
 
 
-SingleSlide.parameters = {
-  docs: { source: { code: templateSourceCode(singleSource, SingleSlide.args) } },
+Single.parameters = {
+  docs: { source: { code: templateSourceCode(singleSource, Single.args) } },
 };
 
-export const GroupSlide = (args: any) => {
+export const Group = (args: any) => {
 
   return {
     components: { SlideInOut },
@@ -92,16 +92,16 @@ export const GroupSlide = (args: any) => {
 };
 
 
-GroupSlide.args = {
+Group.args = {
   entry: 'left',
   exit: 'top',
   duration: 700,
   group: true,
   tag: 'div',
-  'move-class': 'group-move-enter',
-  'leave-active-class': 'group-move-leave'
+  moveClass: 'group-move-enter',
+  leaveActiveClass: 'group-move-leave'
 };
 
-GroupSlide.parameters = {
-  docs: { source: { code: templateSourceCode(groupSource, GroupSlide.args) } },
+Group.parameters = {
+  docs: { source: { code: templateSourceCode(groupSource, Group.args) } },
 };
