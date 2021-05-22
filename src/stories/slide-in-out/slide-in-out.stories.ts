@@ -95,7 +95,7 @@ export const Group = (args: any) => {
 Group.args = {
   entry: 'left',
   exit: 'top',
-  duration: 700,
+  duration: 800,
   group: true,
   tag: 'div',
   moveClass: 'group-move-enter',

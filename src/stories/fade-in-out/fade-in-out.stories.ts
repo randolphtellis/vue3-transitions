@@ -36,7 +36,7 @@ export const Single = (args: any, { argTypes }) => ({
   },
   template: `
   <div>
-    <button class="story-buttons" @click="autoTrigger">Trigger fade</button>
+    <button class="story-buttons" @click="autoTrigger">Trigger animation</button>
     <div class="single-wrap">
       <FadeInOut v-bind="args">
         <div v-if="fade" class="card single-item"></div>
@@ -95,7 +95,7 @@ export const Group = (args: any) => {
 Group.args = {
   entry: 'left',
   exit: 'bottom',
-  duration: 700,
+  duration: 800,
   group: true,
   tag: 'div',
   moveClass: 'group-move-enter',
