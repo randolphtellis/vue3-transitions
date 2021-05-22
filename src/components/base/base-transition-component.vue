@@ -23,6 +23,20 @@ export default defineComponent({
 
   setup(props: BasePropsType, { emit }) {
 
+    /**
+     * Removes the custom props so they aren't rendered within the HTML
+     */
+    const baseProps = computed(() => {
+
+      const { ['entry']: entry, ...withoutEntry } = props;
+
+      const { ['exit']: exit, ...withoutEntryExit } = withoutEntry;
+
+      const { ['group']: group, ...defaultProps } = withoutEntryExit;
+      
+      return defaultProps;
+    })
+
     const defaultDuration = ref(500)
 
     const durationObj = computed(() => {
@@ -43,7 +57,6 @@ export default defineComponent({
 
     const insertDuration = (el: HTMLElement) => {
       if (el) {
-        emit('onEnter', el)
         if (props.group) {
           const slotItems = el.children
           for (let i = 0; i < slotItems.length; i++) {
@@ -52,6 +65,7 @@ export default defineComponent({
         } else {
           el.style.transitionDuration = durationObj.value?.enter + 'ms'
         }
+        emit('onEnter', el)
       }
     }
 
@@ -70,7 +84,7 @@ export default defineComponent({
     }
 
     return {
-      props,
+      baseProps,
       insertDuration,
       insertLeaveDuration
     }
@@ -81,21 +95,23 @@ export default defineComponent({
 <template>
 	<transition-group
     v-if="group"
-    v-bind="props"
+    v-bind="baseProps"
     @enter="insertDuration($el)"
     @before-leave="insertLeaveDuration($el)"
     :name="name"
-  > 
+  >
+    <!-- @slot The default slot -->
     <slot></slot>
   </transition-group>
 
   <transition
     v-else
-    v-bind="props"
+    v-bind="baseProps"
     @enter="insertDuration($el)"
     @before-leave="insertLeaveDuration($el)"
     :name="name"
   >
+    <!-- @slot The default slot -->
     <slot></slot>
   </transition>
 </template>

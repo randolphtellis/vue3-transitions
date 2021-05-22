@@ -1,21 +1,94 @@
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
+import { defineComponent, computed, ref, onMounted } from 'vue'
 import BaseTransitionComponent from '../base/base-transition-component.vue'
 import { EntryExitPropsType } from '../base/props/entry-exit-props-type'
-import { props } from '../base/props/entry-exit-props'
 
 export default defineComponent({
   name: 'fade-in-out',
 
   components: { BaseTransitionComponent },
 
-  props,
+  props: {
+    /**
+     * Specifies the duration of the transition in milliseconds. 
+     * Also accepts separate values for enter and leave durations `e.g { enter: 500, leave: 800 }`
+     */
+    duration: {
+      type: [Number, Object],
+      default: 500,
+    },
+    /**
+     * The entry style animation type. 
+     * Accepts `center` `left`
+     */
+    entry: {
+      type: String,
+      default: 'center',
+    validator: (value: string) => ['center', 'left'].includes(value),
+    },
+    /**
+     * The exit style animation type.
+     * Accepts `center` `left` `right` `top` `bottom`
+     */
+    exit: {
+      type: String,
+      default: 'center',
+    validator: (value: string) => ['center', 'left', 'right', 'top', 'bottom'].includes(value),
+    },
+    /**
+     * Whether to apply the transition on initial render.
+     */
+    appear: {
+      type: Boolean,
+      required: false,
+    },
+    /**
+     * Controls the timing sequence of leaving/entering transitions. 
+     * Accepts `out-in` or `in-out` 
+     * Required when used with router-view. 
+     * Only exposed when group is false
+     */
+    mode: {
+      type: String,
+      required: false,
+      validator: (value: string) => ['out-in', 'in-out'].includes(value),
+    },
+    /**
+     * Whether transition effects are for multiple elements/components. 
+     * Every child in a group must be uniquely keyed for the animations to work properly.
+     */
+    group: {
+      type: Boolean,
+      required: false,
+    },
+    /**
+     * If not defined, renders without a root element. 
+     * Only usable if group is true.
+     */
+    tag: {
+      type: String,
+      required: false
+    },
+    /**
+     * Speed up transitions by skipping hooks. 
+     * Only to be used if elements are show/hidden, e.g v-show. 
+     * Does not work if elements are inserted/removed, e.g v-if
+     */
+    persisted: {
+      type: Boolean,
+      required: false
+    }
+  },
 
   setup(props: EntryExitPropsType) {
 
     const transitionType = ref('fio') // FadeInOut
 
-    const transitionName = computed(() => `vt_${transitionType.value}-${props.entry}-${props.exit}`)
+    const firstChar = (type: string): string => {
+      return type.substring(0, 1)
+    }
+
+    const transitionName = computed(() => `vt_${transitionType.value}-${firstChar(props.entry)}-${firstChar(props.exit)}`)
 
     return {
       props,
@@ -33,170 +106,198 @@ export default defineComponent({
   >
     <slot></slot>
   </BaseTransitionComponent>
+  
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 
 .vt_fio {
   // Classic Fade in center and fade out center
-  &-center-center-enter-active,
-  &-center-center-leave-active {
+  &-c-c-enter-active {
     transition: opacity ease-in;
   }
 
-  &-center-center-enter-from,
-  &-center-center-leave-to {
+  &-c-c-leave-to {
     opacity: 0;
+    transition: opacity ease-in;
   }
-  &-center-center-enter-to,
-  &-center-center-leave-from {
+
+  &-c-c-enter-from {
+    opacity: 0;
+    transition: opacity ease-in;
+  }
+  &-c-c-enter-to,
+  &-c-c-leave-from {
     opacity: 1;
   }
 
   // Fade in center fade out left
-  &-center-left-enter-active {
+  &-c-l-enter-active {
     transition: opacity ease-in;
   }
-  &-center-left-enter-from,
-  &-center-left-leave-to {
+  &-c-l-leave-to {
     opacity: 0;
+    transition: all ease-in;
     transform: translate3d(-10%, 0, 0);
   }
-  &-center-left-enter-to,
-  &-center-left-leave-from {
+  &-c-l-enter-from {
+    opacity: 0;
+    transition: all ease-in;
+    transform: translate3d(-10%, 0, 0);
+  }
+  &-c-l-enter-to,
+  &-c-l-leave-from {
     opacity: 1;
   }
 
   // Fade in center fade out right
-  &-center-right-enter-active {
+  &-c-r-enter-active {
     transition: opacity ease-in;
   }
-  &-center-right-enter-from,
-  &-center-right-leave-to {
+  &-c-r-leave-to {
     opacity: 0;
+    transition: all ease-in;
     transform: translate3d(10%, 0, 0);
   }
-  &-center-right-enter-to,
-  &-center-right-leave-from {
+  &-c-r-enter-from {
+    opacity: 0;
+    transition: all ease-in;
+    transform: translate3d(10%, 0, 0);
+  }
+  &-c-r-enter-to,
+  &-c-r-leave-from {
     opacity: 1;
   }
 
   // Fade in center fade out top
-  &-center-top-enter-active {
+  &-c-t-enter-active {
     transition: opacity ease-in;
   }
-  &-center-top-enter-from,
-  &-center-top-leave-to {
+  &-c-t-leave-to {
     opacity: 0;
+    transition: all ease-in;
     transform: translate3d(0, -10%, 0);
   }
-  &-center-top-enter-to,
-  &-center-top-leave-from {
+  &-c-t-enter-from {
+    opacity: 0;
+  }
+  &-c-t-enter-to,
+  &-c-t-leave-from {
     opacity: 1;
   }
 
   // Fade in center fade out bottom
-  &-center-bottom-enter-active {
+  &-c-b-enter-active {
     transition: opacity ease-in;
   }
-  &-center-bottom-enter-from,
-  &-center-bottom-leave-to {
+  &-c-b-leave-to {
     opacity: 0;
+    transition: all ease-in;
     transform: translate3d(0, 10%, 0);
   }
-  &-center-bottom-enter-to,
-  &-center-bottom-leave-from {
+  &-c-b-enter-from {
+    opacity: 0;
+    transition: all ease-in;
+    transform: translate3d(0, 10%, 0);
+  }
+  &-c-b-enter-to,
+  &-c-b-leave-from {
     opacity: 1;
   }
 
   // Fade in left fade out center
-  &-left-center-enter-active {
+  &-l-c-enter-active {
     transition: all ease-in;
     transform: translate3d(-10%, 0, 0);
   }
-  &-left-center-leave-active {
-    transition: opacity ease-in;
+  &-l-c-leave-to {
+    opacity: 0;
+    transition: all ease-in;
   }
-  &-left-center-enter-from,
-  &-left-center-leave-to {
+  &-l-c-enter-from {
     opacity: 0;
   }
-  &-left-center-enter-to,
-  &-left-center-leave-from {
+  &-l-c-enter-to,
+  &-l-c-leave-from {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
   // Fade in left fade out left
-  &-left-left-enter-from,
-  &-left-left-leave-to {
-    opacity: 0;
+  &-l-l-enter-active {
+    transition: all ease-in;
     transform: translate3d(-10%, 0, 0);
   }
-  &-left-left-enter-to,
-  &-left-left-leave-from {
+  &-l-l-leave-to {
+    opacity: 0;
+    transition: all ease-in;
+    transform: translate3d(-10%, 0, 0);
+  }
+  &-l-l-enter-from {
+    opacity: 0;
+  }
+  &-l-l-enter-to,
+  &-l-l-leave-from {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
   // Fade in left fade out right
-  &-left-right-enter-active {
+  &-l-r-enter-active {
     transition: all ease-in;
     transform: translate3d(-10%, 0, 0);
   }
-  &-left-right-leave-to {
+  &-l-r-leave-to {
     opacity: 0;
     transition: all ease-in;
     transform: translate3d(10%, 0, 0);
   }
-  &-left-right-enter-from {
+  &-l-r-enter-from {
     opacity: 0;
   }
-  &-left-right-enter-to,
-  &-left-right-leave-from {
+  &-l-r-enter-to,
+  &-l-r-leave-from {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
   // Fade in left fade out top
-  &-left-top-enter-active {
+  &-l-t-enter-active {
     transition: all ease-in;
     transform: translate3d(-10%, 0, 0);
   }
-  &-left-top-leave-to {
+  &-l-t-leave-to {
     opacity: 0;
     transition: all ease-in;
     transform: translate3d(0, -10%, 0);
   }
-  &-left-top-enter-from {
+  &-l-t-enter-from {
     opacity: 0;
   }
-  &-left-top-enter-to,
-  &-left-top-leave-from {
+  &-l-t-enter-to,
+  &-l-t-leave-from {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 
   // Fade in left fade out bottom
-  &-left-bottom-enter-active {
+  &-l-b-enter-active {
     transition: all ease-in;
     transform: translate3d(-10%, 0, 0);
   }
-  &-left-bottom-leave-to {
+  &-l-b-leave-to {
     opacity: 0;
     transition: all ease-in;
     transform: translate3d(0, 10%, 0);
   }
-  &-left-bottom-enter-from {
+  &-l-b-enter-from {
     opacity: 0;
   }
-  &-left-bottom-enter-to,
-  &-left-bottom-leave-from {
+  &-l-b-enter-to,
+  &-l-b-leave-from {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
-
-
 }
 
 </style>

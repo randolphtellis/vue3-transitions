@@ -1,106 +1,107 @@
-import { onMounted, ref } from 'vue';
-import { Meta } from '@storybook/vue3';
-import FadeInOut from '../../components/fade-in-out/fade-in-out.vue';
+import { ref } from 'vue'
+import '../css/page.scss'
+import { Meta } from '@storybook/vue3'
+import FadeInOut from '../../components/fade-in-out/fade-in-out.vue'
+import { templateSourceCode } from '../utilities/template-source'
+import { singleSource, groupSource } from './source-code'
 
-const entryExitValues = ['center', 'left', 'right', 'top', 'bottom'];
+const entryValues = ['center', 'left'];
+const exitValues = ['center', 'left', 'right', 'top', 'bottom'];
 
 export default {
-  title: 'Entry & Exit Animations/FadeInOut/Default',
+  title: 'Entry & Exit Animations/FadeInOut',
   component: FadeInOut,
   argTypes: {
-    entry: { control: { type: 'select', options: entryExitValues }, defaultValue: 'center' },
-    exit: { control: { type: 'select', options: entryExitValues },  defaultValue: 'center' },
-    duration: { control: { type: 'number'}, defaultValue: 1000 }
+    entry: { control: { type: 'select', options: entryValues } },
+    exit: { control: { type: 'select', options: exitValues } },
+    duration: { control: { type: 'object' }, defaultValue: { enter: 500, leave: 800 } },
+    mode: { control: { type: 'select', required: false, options: ['out-in', 'in-out'] } },
+    appear: { control: { type: 'boolean', required: false } },
+    tag: { control: { type: 'text', required: false } },
+    group: { control: { type: 'boolean', required: false } },
   },
-  parameters: {
-    storybookCodePanel: {
-        disabled: false,
-        files: [
-            {
-                fileName: 'Example',
-                // Not needed if file extension was mapped globally, or file extension matches Prism language key
-                language: 'html',
-                code: require('!!raw-loader!./fade-in-out.example.html')
-            }
-        ]
-    }
-  }
 } as Meta;
 
-export const FadeInCenterOutCenter = (args: any) => ({
+export const Single = (args: any, { argTypes }) => ({
+  props: Object.keys(argTypes),
   components: { FadeInOut },
   setup() {
-    const fade = ref(false)
+    const fade = ref<boolean>(true)
 
     const autoTrigger = () => {
       fade.value = !fade.value
     }
 
-    onMounted(() => {
-      autoTrigger();
-      setInterval(() => {
-        autoTrigger();
-      }, args.duration + 200)
-    })
-    return { args, fade }
+    return { args, fade, autoTrigger }
   },
   template: `
-    <fade-in-out v-bind="args">
-      <h1 v-if="fade">Fade In Out</h1>
-    </fade-in-out>
-  `,
+  <div>
+    <button class="story-buttons" @click="autoTrigger">Trigger fade</button>
+    <div class="single-wrap">
+      <FadeInOut v-bind="args">
+        <div v-if="fade" class="card single-item"></div>
+      </FadeInOut>
+    </div>
+  </div>
+  `
 });
 
-export const FadeInCenterOutLeft = FadeInCenterOutCenter.bind({});
-FadeInCenterOutLeft.args = {
+Single.args = {
   entry: 'center',
-  exit: 'left',
-};
-
-export const FadeInCenterOutRight = FadeInCenterOutCenter.bind({});
-FadeInCenterOutRight.args = {
-  entry: 'center',
-  exit: 'right',
-};
-
-export const FadeInCenterOutTop = FadeInCenterOutCenter.bind({});
-FadeInCenterOutTop.args = {
-  entry: 'center',
-  exit: 'top',
-};
-
-export const FadeInCenterOutBottom = FadeInCenterOutCenter.bind({});
-FadeInCenterOutBottom.args = {
-  entry: 'center',
-  exit: 'bottom',
-};
-
-export const FadeInLeftOutCenter = FadeInCenterOutCenter.bind({});
-FadeInLeftOutCenter.args = {
-  entry: 'left',
   exit: 'center',
+  duration: 800,
+  appear: true
 };
 
-export const FadeInLeftOutLeft = FadeInCenterOutCenter.bind({});
-FadeInLeftOutLeft.args = {
-  entry: 'left',
-  exit: 'left',
+
+Single.parameters = {
+  docs: { source: { code: templateSourceCode(singleSource, Single.args) } },
 };
 
-export const FadeInLeftOutRight = FadeInCenterOutCenter.bind({});
-FadeInLeftOutRight.args = {
-  entry: 'left',
-  exit: 'right',
+export const Group = (args: any) => {
+
+  return {
+    components: { FadeInOut },
+    setup() {
+      const items = ref<number[]>([1])
+
+      const nextNum = ref<number>(10)
+
+      const addItem = () => {
+        items.value.push(nextNum.value++)
+      }
+
+      const removeItem = () => {
+        if (items.value.length !== 1) {
+          items.value.pop();
+        }
+      }
+
+      return { args, items, addItem, removeItem }
+    },
+    template: `
+    <div>
+      <button class="story-buttons" @click="addItem">Add item</button>
+      <button class="story-buttons" @click="removeItem">Remove item</button>
+      <FadeInOut v-bind="args" class="group-wrap">
+        <div v-for="(item, i) in items.slice().reverse()" class=" card group-item" :key="item"></div>
+      </FadeInOut>
+    </div>
+    `
+  };
 };
 
-export const FadeInLeftOutTop = FadeInCenterOutCenter.bind({});
-FadeInLeftOutTop.args = {
-  entry: 'left',
-  exit: 'top',
-};
 
-export const FadeInLeftOutBottom = FadeInCenterOutCenter.bind({});
-FadeInLeftOutBottom.args = {
+Group.args = {
   entry: 'left',
   exit: 'bottom',
+  duration: 700,
+  group: true,
+  tag: 'div',
+  'move-class': 'group-move-enter',
+  'leave-active-class': 'group-move-leave'
+};
+
+Group.parameters = {
+  docs: { source: { code: templateSourceCode(groupSource, Group.args) } },
 };
